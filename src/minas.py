@@ -6,6 +6,7 @@ La función revelar_celdas_vacias y verificar_victoria necesitan ser implementad
 Este ejercicio es una excelente manera de evaluar y mejorar las habilidades de programación de tus alumnos, enfocándose en las estructuras de datos y el manejo de lógica básica en Python.
 
 """
+import random
 FILAS = 8
 COLUMNAS = 8
 VACIO:int = " "
@@ -25,8 +26,13 @@ Esta es la ayuda del buscaminas de Natalia, creado para una actividad de clase e
 """
 celdasReveladas = set()
 celdasMarcadas= set()
-
-import random
+listaMinas = []
+listaNumeros = []
+listaCeldasVacías = []
+estadoCeldas = {}
+estadoMinas = "MINA"
+estadoVacias = "VACIAS"
+estadoNumero = "NUMERO"
 tablero8x8:list = [
     [VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO],
     [VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO],
@@ -37,14 +43,6 @@ tablero8x8:list = [
     [VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO],
     [VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO, VACIO]
 ]
-
-listaMinas = []
-listaNumeros = []
-listaCeldasVacías = []
-estadoCeldas = {}
-estadoMinas = "MINA"
-estadoVacias = "VACIAS"
-estadoNumero = "NUMERO"
 
 def entradaDeDatos(mensaje:str)->str:
     """Funcion para la entrada de datos del juego
@@ -104,7 +102,6 @@ def marcarCelda(posicionX, posicionY):
     """
     if (posicionX, posicionY) not in celdasMarcadas:
         celdasMarcadas.add((posicionX, posicionY))
-    
 
 def revelarCelda(posicionX:int, posicionY:int)->bool:
     """Función que realiza la acción de revelar la celda según las posiciones ingresadas por el usuario, en relación de si la celda es 0 se revelan todas las de al rededor hasta mostrar números distintos de 0.
@@ -131,6 +128,7 @@ def revelarCelda(posicionX:int, posicionY:int)->bool:
         for j in range(-1, 2):
             revelarCelda(posicionX + i, posicionY + j)
     return True
+
 def juegoTerminado(posicionX:int, posicionY:int)->str:
     """Evalua si el juego ha terminado dependiendo de si se ha encontrado una mina o de si se ha desvelado todas las celdas sin concontrar una mina.
 
